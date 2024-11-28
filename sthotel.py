@@ -1,10 +1,6 @@
 import streamlit as st
 import pandas as pd
-import locale
 import plotly.express as px
-
-# Definir a localidade para formatar valores monetários no padrão brasileiro
-locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 # Simulação do carregamento do DataFrame (o código de carregamento pode ser mantido conforme anterior)
 url = "https://drive.google.com/uc?id=16ZHSEwBmZ3v1GcOmaQHcclZuf_sAKaZ3&export=download"
@@ -67,8 +63,8 @@ df_comparacao = pd.merge(df_2023[['mês', 'faturamento']],
                           suffixes=(' 2023', ' 2024'))
 
 # Aplicar a formatação monetária para as colunas 'faturamento 2023' e 'faturamento 2024'
-df_comparacao['faturamento 2023'] = df_comparacao['faturamento 2023'].apply(lambda x: locale.currency(x, grouping=True))
-df_comparacao['faturamento 2024'] = df_comparacao['faturamento 2024'].apply(lambda x: locale.currency(x, grouping=True))
+df_comparacao['faturamento 2023'] = df_comparacao['faturamento 2023'].apply(lambda x: f"R$ {x:,.2f}")
+df_comparacao['faturamento 2024'] = df_comparacao['faturamento 2024'].apply(lambda x: f"R$ {x:,.2f}")
 
 st.write("### Dashboard Faturamento")
 st.write("Segue abaixo graficos mostrando o possivel encerramento do ano de acordo com as projeções baseadas no ano passo, e a direita temos uma tabela com o sintetico mensal")
