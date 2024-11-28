@@ -79,9 +79,10 @@ with col2:
     fig_2024 = px.line(df_2024, x='mês', y='faturamento', title="Faturamento 2024",
                        labels={'faturamento': 'Valor de Faturamento', 'mês': 'Mês'},
                        line_shape='spline')  # 'spline' cria uma linha suave com ondulação
-    fig_2024.update_traces(text=df_2024['faturamento'].apply(lambda x: locale.currency(x, grouping=True)),
-                           textposition='top center',  # Exibir rótulos de dados acima da linha
-                           hoverinfo='x+y+text')  # Mostrar texto ao passar o mouse
+    fig_2024.update_traces(
+        text=df_2024['faturamento'].apply(lambda x: f"R$ {x:,.2f}"),
+        textposition='top center',
+        hoverinfo='x+y+text')
     fig_2024.update_layout(showlegend=False, xaxis_showgrid=False, yaxis_showgrid=False)  # Remover linhas de grade
     st.plotly_chart(fig_2024)
 
@@ -90,9 +91,11 @@ with col2:
 with col1:
 
     # Gráfico de 2023 com ondulação e rótulos de dados
-    fig_2023 = px.line(df_2023, x='mês', y='faturamento', title="Faturamento 2023",
-                       labels={'faturamento': 'Valor de Faturamento', 'mês': 'Mês'},
-                       line_shape='spline')  # 'spline' cria uma linha suave com ondulação
+    fig_2023.update_traces(
+        text=df_2023['faturamento'].apply(lambda x: f"R$ {x:,.2f}"),
+        textposition='top center',
+        hoverinfo='x+y+text'
+    )
     fig_2023.update_traces(text=df_2023['faturamento'].apply(lambda x: locale.currency(x, grouping=True)),
                            textposition='top center',  # Exibir rótulos de dados acima da linha
                            hoverinfo='x+y+text')  # Mostrar texto ao passar o mouse
