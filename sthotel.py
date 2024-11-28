@@ -94,9 +94,11 @@ with col1:
     fig_2023 = px.line(df_2023, x='mês', y='faturamento', title="Faturamento 2023",
                        labels={'faturamento': 'Valor de Faturamento', 'mês': 'Mês'},
                        line_shape='spline')
-    fig_2023.update_traces(text=df_2023['faturamento'].apply(lambda x: locale.currency(x, grouping=True)),
-                           textposition='top center',  # Exibir rótulos de dados acima da linha
-                           hoverinfo='x+y+text')  # Mostrar texto ao passar o mouse
+    fig_2023.update_traces(
+        text=df_2023['faturamento'].apply(lambda x: f"R$ {x:,.2f}" if isinstance(x, (int, float)) and pd.notnull(x) else ""),
+        textposition='top center',
+        hoverinfo='x+y+text'
+    )
     fig_2023.update_layout(showlegend=False, xaxis_showgrid=False, yaxis_showgrid=False)  # Remover linhas de grade
     st.plotly_chart(fig_2023)
 
